@@ -21,6 +21,7 @@ namespace ProfileAPI
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<EmailService>();
             builder.Services.AddScoped<CountryService>();
+
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
             builder.Services.AddDbContext<ProfileContext>(options =>

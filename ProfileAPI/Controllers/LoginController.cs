@@ -16,12 +16,10 @@ namespace ProfileAPI.Controllers
     public class LoginController : ControllerBase
     {
         private readonly UserService _userService;
-        private readonly IConfiguration _configuration;
 
-        public LoginController(UserService userService, IConfiguration configuration)
+        public LoginController(UserService userService)
         {
             _userService = userService;
-            _configuration = configuration;
         }
 
         [HttpPost("login")]

@@ -9,7 +9,7 @@ namespace ProfileAPI.Services
     {
 
         //returns countries object 
-        public static async Task<List<Country>> LoadCountriesAsync(string path = "CountryCodes.json")
+        public async Task<List<Country>> LoadCountriesAsync(string path = "CountryCodes.json")
         {
             var options = new JsonSerializerOptions
             {

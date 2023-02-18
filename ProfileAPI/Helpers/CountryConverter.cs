@@ -4,6 +4,9 @@ using System.Text.Json;
 
 namespace ProfileAPI.Helpers
 {
+    /// <summary>
+    /// A class inheriting from JSonConverter with the overridden methods necessary for the conversion of JOSN into C# objects
+    /// </summary>
     public class CountryConverter : JsonConverter<Country>
     {
         public static Country Convert(string countryName, string dialCode, List<Country> countries)
@@ -11,7 +14,7 @@ namespace ProfileAPI.Helpers
             // Find the first country in the list that matches the country name or dial code.
             Country country = countries.FirstOrDefault(c => c.Name == countryName || c.DialCode == dialCode);
 
-            // Return the country, or null if no matching country was found.
+            // Return the country
             return country;
         }
 

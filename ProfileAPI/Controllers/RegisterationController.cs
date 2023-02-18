@@ -28,12 +28,13 @@ namespace ProfileAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] Info request)
         {
+            //Check validation of the provided info
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            List<Country> countries = await CountryService.LoadCountriesAsync();
+            // Load the countries from the JSON file and convert it to Country object
+            List<Country> countries = await _countryService.LoadCountriesAsync();
 
             Country selectedCountry = CountryConverter.Convert(request.Country.Name, request.Country.DialCode, countries);
 
@@ -43,20 +44,16 @@ namespace ProfileAPI.Controllers
                 return BadRequest("Invalid country or dial code.");
             }
 
-            //// TODO: Save user to database, hash password, etc.
-
-            //// Send confirmation email
+            //// Send confirmation email and save 
             var verificationCode = _emailService.GenerateVerificationCode();
             var email = request.Email;
             _emailService.SendVerificationEmail(email, verificationCode);
             
+            // Add registered info to database and save
             await _context.AddAsync(request);
+            await _context.AddAsync(verificationCode);
             await _context.SaveChangesAsync();
             return Ok(request);
-            
-
-
-            //// TODO: Return appropriate response
         }
 
         [HttpGet("confirm-email")]
@@ -76,6 +73,5 @@ namespace ProfileAPI.Controllers
 
             return Ok("Email confirmed successfully");
         }
-
     }
 }

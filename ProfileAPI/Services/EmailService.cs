@@ -18,6 +18,7 @@ namespace ProfileAPI.Services
 
         public void SendVerificationEmail(string email, string verificationCode)
         {
+            // construct the email message
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Ebrahim", "ebrahim3adel@gmail.com"));
             message.To.Add(new MailboxAddress("Recipient", email));
